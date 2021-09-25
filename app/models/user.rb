@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   attr_writer :login
   has_one_attached :profile_picture
+  has_many :dogs
 
   def login
     @login || self.username || self.email
