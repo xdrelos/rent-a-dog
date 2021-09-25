@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: { case_sensitive: false }, length: { minimum: 3 }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   attr_writer :login
+  has_one_attached :profile_picture
 
   def login
     @login || self.username || self.email
