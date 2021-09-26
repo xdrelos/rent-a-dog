@@ -9,6 +9,7 @@ class User < ApplicationRecord
   attr_writer :login
   has_one_attached :profile_picture
   has_many :dogs
+  has_many :rentings
 
   def login
     @login || self.username || self.email
