@@ -1,0 +1,5 @@
+<%= simple_form_for( [@dog, @renting]) do |f| %>
+  <%= f.input :date, html5: true %>
+  <%= f.input :number_of_hours %>
+  <%= f.button :submit, value: "Rent", class: "btn btn-outline-primary rounded-pill w-100" %>
+<% end -%>

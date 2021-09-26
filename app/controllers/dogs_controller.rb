@@ -7,5 +7,6 @@ class DogsController < ApplicationController
 
   def show
     @dog = Dog.find(params[:id])
+    @renting = Renting.new
   end
 end
