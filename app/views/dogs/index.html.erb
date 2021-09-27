@@ -15,7 +15,11 @@
     <% @dogs.each do |dog| %>
       <%= link_to dog_path(dog), class:"no-links" do %>
         <div class="card-dog">
-          <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" />
+          <% if dog.profile_picture.attached? %>
+            <%= cl_image_tag(dog.profile_picture.key) %>
+          <% else %>
+            <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" />
+          <% end -%>
           <div class="card-dog-infos">
             <div>
               <h2><%= dog.name %></h2>

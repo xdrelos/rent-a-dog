@@ -1,12 +1,12 @@
 <%= simple_form_for(@dog) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :breed %>
-  <%= f.input :description %>
-  <%= f.input :city %>
-  <%= f.input :age %>
-  <%= f.input :palmares %>
-  <%= f.input :price_per_hour %>
+  <%= f.input :name, input_html: {class: 'rounded-pill'} %>
+  <%= f.input :breed, input_html: {class: 'rounded-pill'} %>
+  <%= f.input :description, input_html: {class: 'rounded-pill'} %>
+  <%= f.input :city, input_html: {class: 'rounded-pill'} %>
+  <%= f.input :age, input_html: {class: 'rounded-pill'} %>
+  <%= f.input :palmares, input_html: {class: 'rounded-pill'} %>
+  <%= f.input :price_per_hour, input_html: {class: 'rounded-pill'} %>
   <%= f.input :profile_picture,as: :file %>
   <%= f.input :pictures,as: :file, input_html: {multiple: true } %>
-  <%= f.button :submit, class: "btn btn-outline-primary rounded-pill" %>
+  <%= f.button :submit, class: "btn btn-outline-success rounded-pill btn-block" %>
 <% end %>

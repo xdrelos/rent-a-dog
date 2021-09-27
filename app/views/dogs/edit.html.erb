@@ -2,11 +2,11 @@
   <div class="row justify-content-center">
     <div class="col-8 col-xs-8 col-sm-6">
       <div class="card p-3">
-        <h1>Add a new Dog</h1>
+        <h1>Edit a Dog</h1>
         <hr>
 
         <%= render "form" %>
-
+        <%= link_to 'Back', dog_path(@dog), class: 'btn btn-outline-primary rounded-pill btn-block mt-3' %>
       </div>
     </div>
   </div>
