@@ -25,6 +25,8 @@
             <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
             <% if dog.user.profile_picture.attached? %>
               <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
+            <% else %>
+              <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
             <% end -%>
           </div>
         </div>
