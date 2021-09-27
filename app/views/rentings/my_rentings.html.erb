@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <h1>My Rentings</h1>
+  <h1>Rentings</h1>
   <hr>
   <div class="row">
     <div class="col-6">
@@ -33,9 +33,7 @@
       <h2>Rentings to validate</h2>
       <hr>
       <ul class="list-group">
-        <% if current_user.dogs.empty? %>
-          <li class="list-group-item">No Rentings to validate.</li>
-        <% end -%>
+
         <% current_user.dogs.each do |dog| %>
           <% unless dog.rentings.empty? %>
             <h5><%= dog.name %></h5>

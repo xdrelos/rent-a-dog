@@ -1,6 +1,6 @@
 <%= simple_form_for( [@dog, @renting]) do |f| %>
   <%= f.input :date, html5: true, input_html: { class: 'rounded-pill' } %>
   <%= f.input :number_of_hours, input_html: { min: '1', max: '24', step: 'any', class: 'rounded-pill' }%>
-  <%= f.button :submit, value: (controller_name == "dogs" ? "Rent" : "Update Renting"), class: "btn btn-outline-success rounded-pill btn-block" %>
+  <%= f.button :submit, value: "Rent", disabled: (current_user == @dog.user ? true : false), class: "btn btn-outline-success rounded-pill btn-block" %>
 <% end -%>
 
