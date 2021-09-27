@@ -8,6 +8,10 @@ class Renting < ApplicationRecord
   validates :date, :number_of_hours, presence: true
   validate :date_after_current_date
 
+  def pending?
+    status == "Pending"
+  end
+
   private
 
   def date_after_current_date
