@@ -2,7 +2,9 @@
   <div class="container">
     <h1>Rent a Dog allows you to find the ideal companion for a date!</h1>
     <p>Change your life by finding the right person.</p>
-    <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-success rounded-pill' %>
+    <% unless user_signed_in? %>
+      <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-success rounded-pill' %>
+    <% end -%>
   </div>
 </div>
 <div class="container mt-3">
