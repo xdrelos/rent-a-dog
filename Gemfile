@@ -36,7 +36,7 @@ gem 'cloudinary'
 gem 'pagy'
 gem 'faker'
 gem 'pg_search'
-
+gem 'active_link_to'
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

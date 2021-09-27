@@ -19,3 +19,7 @@
 .btn-outline-success:hover:disabled {
   color: $green;
 }
+
+.active {
+  border-bottom: 1px solid;
+}
