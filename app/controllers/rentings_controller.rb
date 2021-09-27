@@ -1,4 +1,6 @@
 class RentingsController < ApplicationController
+  before_action :set_renting, only: [:edit, :update, :destroy]
+
   def create
     @dog = Dog.find(params[:dog_id])
     @renting = Renting.new(renting_params)
@@ -13,7 +15,34 @@ class RentingsController < ApplicationController
     end
   end
 
+  def my_rentings
+  end
+
+  def edit
+    @dog = @renting.dog
+  end
+
+  def update
+    @renting.update(renting_params)
+    @dog = @renting.dog
+    if @renting.save
+      redirect_to rentings_my_rentings_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @renting.destroy
+    flash[:notice] = "Renting successfully cancelled."
+    redirect_to rentings_my_rentings_path
+  end
+
   private
+
+  def set_renting
+    @renting = Renting.find(params[:id])
+  end
 
   def renting_params
     params.require(:renting).permit(:date, :number_of_hours)
