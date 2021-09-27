@@ -1,2 +1,33 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner-home" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= image_path('banner.jpg') %>);">
+  <div class="container">
+    <h1>Rent a Dog allows you to find the ideal companion for a date!</h1>
+    <p>Change your life by finding the right person.</p>
+    <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-success rounded-pill' %>
+  </div>
+</div>
+<div class="container mt-3">
+  <h2>Our last dogs for rent:</h2>
+  <hr>
+  <div class="cards">
+    <% @dogs.each do |dog| %>
+      <%= link_to dog_path(dog), class:"no-links" do %>
+        <div class="card-dog">
+          <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" />
+          <div class="card-dog-infos">
+            <div>
+              <h2><%= dog.name %></h2>
+              <p><%= dog.breed %></p>
+              <p><%= dog.description.truncate(75, separator: ' ') %></p>
+            </div>
+            <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
+            <% if dog.user.profile_picture.attached? %>
+              <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
+            <% else %>
+              <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
+            <% end -%>
+          </div>
+        </div>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>
