@@ -23,12 +23,27 @@ class RentingsController < ApplicationController
   end
 
   def update
-    @renting.update(renting_params)
-    @dog = @renting.dog
-    if @renting.save
+    if params[:renting][:status]
+      params.require(:renting).permit(:status)
+      if params[:renting][:status] == "Accept"
+        flash[:notice] = "Renting successfully accepted."
+        @renting.status = "Accepted"
+      else
+        flash[:notice] = "Renting successfully declined."
+        @renting.status = "Declined"
+      end
+      @renting.save
       redirect_to rentings_my_rentings_path
     else
-      render 'edit'
+
+      @renting.update(renting_params)
+      @dog = @renting.dog
+      if @renting.save
+        flash[:notice] = "Renting updated successfully."
+        redirect_to rentings_my_rentings_path
+      else
+        render 'edit'
+      end
     end
   end
 
