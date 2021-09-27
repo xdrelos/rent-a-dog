@@ -14,6 +14,7 @@ class DogsController < ApplicationController
     @renting = Renting.new
   end
 
+
   def new
     #dog (@dog=Dog.new) ensuite aller dans view creer la page new
     #enuiste créer formulaire dans partiel _form.html.erb faire un render dans la view new
