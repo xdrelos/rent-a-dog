@@ -5,7 +5,7 @@ class Renting < ApplicationRecord
     message: "%{status} is not a valid value" }
   validates :number_of_hours, inclusion: { in: 1..24,
     message: "must be between 1 and 24" }
-  validates :date, :number_of_hours, presence: true
+  validates :date, :number_of_hours, :status, presence: true
   validate :date_after_current_date
 
   def pending?

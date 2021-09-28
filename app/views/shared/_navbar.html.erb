@@ -29,6 +29,7 @@
           <% else %>
            <%= image_tag "no-avatar.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <% end -%>
+          <%= link_to "Welcome #{current_user.username}", "#", class: "no-links dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <%= link_to "Rentings", rentings_my_rentings_path, class: "dropdown-item" %>
             <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
