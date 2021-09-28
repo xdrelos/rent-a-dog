@@ -23,3 +23,12 @@
 .active {
   border-bottom: 1px solid;
 }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 120px;
+}
