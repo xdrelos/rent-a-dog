@@ -6,34 +6,59 @@
       <h2>My pending rentings</h2>
       <hr>
       <ul class="list-group">
-        <% if current_user.rentings.empty? %>
-          <li class="list-group-item">No current Rentings.</li>
-        <% end -%>
+        <% current_renting = false %>
         <% current_user.rentings.order('created_at DESC').each do |renting| %>
-          <h5><%= renting.dog.name %></h5>
-          <li class="list-group-item mb-2">
-            <p>Renting id: <%= renting.id %></p>
-            <p>Date: <%= renting.date %></p>
-            <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
-            <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
-            <% if renting.pending? %>
+          <% if renting.pending? %>
+            <h5><%= renting.dog.name %></h5>
+            <li class="list-group-item mb-2">
+              <p>Renting id: <%= renting.id %></p>
+              <p>Date: <%= renting.date %></p>
+              <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
+              <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
               <p>Status: <span class="text-warning"><%= renting.status %></span></p>
-            <% else %>
-              <p>Status: <span class="<%= (renting.status == "Accepted" ? "text-success" : "text-danger") %>"><%= renting.status %></span></p>
-            <% end -%>
-            <% if renting.pending? %>
+
               <%= link_to 'Edit', edit_renting_path(renting), class: 'btn btn-outline-primary rounded-pill' %>
               <%= link_to 'Cancel', renting_path(renting), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-danger rounded-pill ml-3' %>
-            <% end -%>
-          </li>
+            </li>
+            <% current_renting = true %>
+          <% end -%>
         <% end -%>
+        <% unless current_renting %>
+          <li class="list-group-item mb-2">
+            No pending rentings.
+          </li>
+        <% end %>
+      </ul>
+      <h2>My previous rentings</h2>
+      <hr>
+      <ul class="list-group">
+        <% previous_renting = false %>
+        <% current_user.rentings.order('created_at DESC').each do |renting| %>
+          <% if !renting.pending? %>
+            <h5><%= renting.dog.name %></h5>
+            <li class="list-group-item mb-2">
+              <p>Renting id: <%= renting.id %></p>
+              <p>Date: <%= renting.date %></p>
+              <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
+              <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
+              <p>Status: <span class="<%= renting.status == "Accepted" ? "text-success" : "text-danger" %>"><%= renting.status %></span></p>
+
+            </li>
+            <% previous_renting = true %>
+          <% end -%>
+        <% end -%>
+        <% unless previous_renting %>
+          <li class="list-group-item mb-2">
+            No previous rentings.
+          </li>
+        <% end %>
       </ul>
     </div>
     <div class="col-12 col-xs-12 col-sm-12 col-lg-6">
       <h2>Rentings to validate</h2>
       <hr>
       <ul class="list-group">
-
+        <% to_validate = false %>
         <% current_user.dogs.each do |dog| %>
 
           <% dog.rentings.order('created_at DESC').each do |renting| %>
@@ -56,21 +81,25 @@
                     <% end -%>
                 <% end -%>
               </li>
+              <% to_validate = true %>
             <% end -%>
           <% end -%>
         <% end -%>
+        <% unless to_validate %>
+          <li class="list-group-item mb-2">
+            No rentings to validate.
+          </li>
+        <% end %>
       </ul>
       <h2>Rentings validated</h2>
       <hr>
       <ul class="list-group">
         <% previous_dog = 0 %>
+        <% validated = false %>
         <% current_user.dogs.each do |dog| %>
-          <% if dog.id != previous_dog && !dog.rentings.empty? %>
-            <h5><%= dog.name %></h5>
-          <% end -%>
           <% dog.rentings.order('created_at DESC').each do |renting| %>
             <% if !renting.pending? %>
-
+              <h5><%= dog.name %></h5>
               <li class="list-group-item mb-2">
                 <p>Renting id: <%= renting.id %></p>
                 <p>Date: <%= renting.date %></p>
@@ -82,11 +111,16 @@
                   <p>Status: <span class="<%= (renting.status == "Accepted" ? "text-success" : "text-danger") %>"><%= renting.status %></span></p>
                 <% end -%>
               </li>
+              <% validated = true %>
             <% end -%>
 
           <% end -%>
-          <% previous_dog = dog.id %>
         <% end -%>
+        <% unless validated %>
+          <li class="list-group-item mb-2">
+            No validated rentings.
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
