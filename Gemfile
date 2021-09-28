@@ -37,6 +37,8 @@ gem 'pagy'
 gem 'faker'
 gem 'pg_search'
 gem 'active_link_to'
+gem 'pundit'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

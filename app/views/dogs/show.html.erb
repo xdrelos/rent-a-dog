@@ -76,8 +76,11 @@
       </div>
       <div class="dog-show-card d-flex justify-content-center">
         <%= link_to 'Back', dogs_path, class: 'btn btn-outline-primary rounded-pill' %>
-        <% if current_user == @dog.user %>
+        <% # if current_user == @dog.user %>
+        <% if policy(@dog).edit? %>
           <%= link_to 'Edit', edit_dog_path(@dog), class: 'btn btn-outline-warning rounded-pill ml-3' %>
+        <% end -%>
+        <% if policy(@dog).destroy? %>
           <%= link_to 'Remove', dog_path(@dog), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-danger rounded-pill ml-3' %>
         <% end -%>
       </div>
