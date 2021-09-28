@@ -16,6 +16,7 @@ class RentingsController < ApplicationController
   end
 
   def my_rentings
+
   end
 
   def edit
