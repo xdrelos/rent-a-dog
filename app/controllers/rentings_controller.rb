@@ -28,12 +28,17 @@ class RentingsController < ApplicationController
       if params[:renting][:status] == "Accept"
         flash[:notice] = "Renting successfully accepted."
         @renting.status = "Accepted"
-      else
+        @renting.save
+        redirect_to rentings_my_rentings_path
+      elsif params[:renting][:status] == "Decline"
         flash[:notice] = "Renting successfully declined."
         @renting.status = "Declined"
+        @renting.save
+        redirect_to rentings_my_rentings_path
+      else
+        render :my_rentings
       end
-      @renting.save
-      redirect_to rentings_my_rentings_path
+
     else
 
       @renting.update(renting_params)

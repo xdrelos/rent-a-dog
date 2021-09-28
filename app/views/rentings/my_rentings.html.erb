@@ -2,8 +2,8 @@
   <h1>Rentings</h1>
   <hr>
   <div class="row">
-    <div class="col-6">
-      <h2>My current rentings</h2>
+    <div class="col-12 col-xs-12 col-sm-12 col-lg-6">
+      <h2>My pending rentings</h2>
       <hr>
       <ul class="list-group">
         <% if current_user.rentings.empty? %>
@@ -29,34 +29,63 @@
         <% end -%>
       </ul>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-xs-12 col-sm-12 col-lg-6">
       <h2>Rentings to validate</h2>
       <hr>
       <ul class="list-group">
 
         <% current_user.dogs.each do |dog| %>
-          <% unless dog.rentings.empty? %>
+
+          <% dog.rentings.order('created_at DESC').each do |renting| %>
+            <% if renting.pending? %>
+            <h5><%= dog.name %></h5>
+              <li class="list-group-item mb-2">
+                <p>Renting id: <%= renting.id %></p>
+                <p>Date: <%= renting.date %></p>
+                <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
+                <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
+                <% if renting.pending? %>
+                  <p>Status: <span class="text-warning"><%= renting.status %></span></p>
+                <% else %>
+                  <p>Status: <span class="<%= (renting.status == "Accepted" ? "text-success" : "text-danger") %>"><%= renting.status %></span></p>
+                <% end -%>
+                <% if renting.pending? %>
+                    <%= simple_form_for([renting.dog, renting]) do |f| %>
+                      <%= f.input :status, as: :radio_buttons, collection: ["Accept","Decline"], checked: "Accept" %>
+                      <%= f.button :submit, value: "Validate", class: "btn btn-outline-primary rounded-pill" %>
+                    <% end -%>
+                <% end -%>
+              </li>
+            <% end -%>
+          <% end -%>
+        <% end -%>
+      </ul>
+      <h2>Rentings validated</h2>
+      <hr>
+      <ul class="list-group">
+        <% previous_dog = 0 %>
+        <% current_user.dogs.each do |dog| %>
+          <% if dog.id != previous_dog && !dog.rentings.empty? %>
             <h5><%= dog.name %></h5>
           <% end -%>
           <% dog.rentings.order('created_at DESC').each do |renting| %>
-            <li class="list-group-item mb-2">
-              <p>Renting id: <%= renting.id %></p>
-              <p>Date: <%= renting.date %></p>
-              <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
-              <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
-              <% if renting.pending? %>
-                <p>Status: <span class="text-warning"><%= renting.status %></span></p>
-              <% else %>
-                <p>Status: <span class="<%= (renting.status == "Accepted" ? "text-success" : "text-danger") %>"><%= renting.status %></span></p>
-              <% end -%>
-              <% if renting.pending? %>
-                  <%= simple_form_for([renting.dog, renting]) do |f| %>
-                    <%= f.input :status, as: :radio_buttons, collection: ["Accept","Decline"] %>
-                    <%= f.button :submit, value: "Validate", class: "btn btn-outline-primary rounded-pill" %>
-                  <% end -%>
-              <% end -%>
-            </li>
+            <% if !renting.pending? %>
+
+              <li class="list-group-item mb-2">
+                <p>Renting id: <%= renting.id %></p>
+                <p>Date: <%= renting.date %></p>
+                <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
+                <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
+                <% if renting.pending? %>
+                  <p>Status: <span class="text-warning"><%= renting.status %></span></p>
+                <% else %>
+                  <p>Status: <span class="<%= (renting.status == "Accepted" ? "text-success" : "text-danger") %>"><%= renting.status %></span></p>
+                <% end -%>
+              </li>
+            <% end -%>
+
           <% end -%>
+          <% previous_dog = dog.id %>
         <% end -%>
       </ul>
     </div>
