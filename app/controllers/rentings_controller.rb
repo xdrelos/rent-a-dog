@@ -1,5 +1,6 @@
 class RentingsController < ApplicationController
   before_action :set_renting, only: [:edit, :update, :destroy]
+  skip_after_action :verify_authorized, only: [:my_rentings]
 
   def create
     @dog = Dog.find(params[:dog_id])
@@ -16,26 +17,35 @@ class RentingsController < ApplicationController
   end
 
   def my_rentings
-
   end
 
   def edit
     @dog = @renting.dog
+    authorize @renting
   end
 
   def update
     if params[:renting][:status]
       params.require(:renting).permit(:status)
+      authorize @renting
       if params[:renting][:status] == "Accept"
-        flash[:notice] = "Renting successfully accepted."
         @renting.status = "Accepted"
-        @renting.save
-        redirect_to rentings_my_rentings_path
+        if @renting.save
+          flash[:notice] = "Renting successfully accepted."
+          redirect_to rentings_my_rentings_path
+        else
+          flash[:alert] = "Couldn't validate the renting."
+          render :my_rentings
+        end
       elsif params[:renting][:status] == "Decline"
-        flash[:notice] = "Renting successfully declined."
         @renting.status = "Declined"
-        @renting.save
-        redirect_to rentings_my_rentings_path
+        if @renting.save
+          flash[:notice] = "Renting successfully declined."
+          redirect_to rentings_my_rentings_path
+        else
+          flash[:alert] = "Couldn't validate the renting."
+          render :my_rentings
+        end
       else
         render :my_rentings
       end
@@ -43,6 +53,7 @@ class RentingsController < ApplicationController
     else
 
       @renting.update(renting_params)
+      authorize @renting
       @dog = @renting.dog
       if @renting.save
         flash[:notice] = "Renting updated successfully."
@@ -55,6 +66,7 @@ class RentingsController < ApplicationController
 
   def destroy
     @renting.destroy
+    authorize @renting
     flash[:notice] = "Renting successfully cancelled."
     redirect_to rentings_my_rentings_path
   end
