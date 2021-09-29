@@ -16,9 +16,12 @@
               <p>Number of hours: <%= pluralize(renting.number_of_hours, "hour") %></p>
               <p>Total price: <%= renting.number_of_hours * renting.dog.price_per_hour %> €</p>
               <p>Status: <span class="text-warning"><%= renting.status %></span></p>
-
-              <%= link_to 'Edit', edit_renting_path(renting), class: 'btn btn-outline-primary rounded-pill' %>
-              <%= link_to 'Cancel', renting_path(renting), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-danger rounded-pill ml-3' %>
+              <% if policy(renting).edit? %>
+                <%= link_to 'Edit', edit_renting_path(renting), class: 'btn btn-outline-primary rounded-pill' %>
+              <% end -%>
+              <% if policy(renting).destroy? %>
+                <%= link_to 'Cancel', renting_path(renting), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-danger rounded-pill ml-3' %>
+              <% end -%>
             </li>
             <% current_renting = true %>
           <% end -%>

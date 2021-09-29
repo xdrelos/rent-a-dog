@@ -16,7 +16,8 @@ class Renting < ApplicationRecord
 
   def date_after_current_date
     return if date.blank?
-
+    # To decline a renting with a date in the past
+    return if status == "Declined"
     if date < Date.today
       errors.add(:date, "must be after today")
     end
