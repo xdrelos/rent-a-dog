@@ -21,8 +21,8 @@
           </div>
         </div>
         <hr>
-        <h5><%= @dog.breed %></h5>
-        <p class="dog-show-address"><%= @dog.city %></p>
+        <h5>Breed: <%= @dog.breed %></h5>
+        <p class="dog-show-address">City: <%= @dog.city %></p>
       </div>
       <div class="dog-show-card">
         <h3>A bit more about this dog...</h3>
@@ -54,7 +54,7 @@
         <hr>
           <ul>
             <li>
-              <span><i class="fas fa-medal mr-2"></i><%= @dog.palmares %> couple(s) formed</span>
+              <span><i class="fas fa-medal mr-2"></i><%= pluralize(@dog.palmares, "couple") %> formed</span>
             </li>
             <li>
               <span><i class="fas fa-euro-sign mr-2"></i><%= @dog.price_per_hour %> per hour</span>
