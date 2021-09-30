@@ -5,6 +5,7 @@ class RentingsController < ApplicationController
   def create
     @dog = Dog.find(params[:dog_id])
     @renting = Renting.new(renting_params)
+    authorize @renting
     @renting.dog = @dog
     @renting.user = current_user
     @renting.status = "Pending"

@@ -1,6 +1,7 @@
 class DogsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  skip_after_action :verify_authorized, only: :my_dogs
 
   def index
     if params[:query] && !params[:query].empty?
@@ -15,6 +16,8 @@ class DogsController < ApplicationController
     authorize @dog
   end
 
+  def my_dogs
+  end
 
   def new
     #dog (@dog=Dog.new) ensuite aller dans view creer la page new
