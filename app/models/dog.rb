@@ -5,6 +5,8 @@ class Dog < ApplicationRecord
   has_many_attached :pictures
   has_many :rentings
   include PgSearch::Model
+  geocoded_by :city
+  after_validation :geocode, if: :will_save_change_to_city?
 
   pg_search_scope :global_search,
     against: [ :name, :breed, :description, :city ],

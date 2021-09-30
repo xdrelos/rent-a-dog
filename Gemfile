@@ -39,6 +39,8 @@ gem 'pg_search'
 gem 'active_link_to'
 gem 'pundit'
 gem 'turbolinks_render'
+gem 'geocoder'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

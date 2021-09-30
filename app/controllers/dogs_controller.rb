@@ -9,11 +9,26 @@ class DogsController < ApplicationController
     else
       @pagy, @dogs = pagy(policy_scope(Dog).all.order(:palmares), items: 10)
     end
+
+    @markers = @dogs.geocoded.map do |dog|
+      {
+        lat: dog.latitude,
+        lng: dog.longitude,
+        image_url: helpers.asset_url('logo.png')
+      }
+    end
   end
 
   def show
     @renting = Renting.new
     authorize @dog
+    @markers =[
+      {
+        lat: @dog.latitude,
+        lng: @dog.longitude,
+        image_url: helpers.asset_url('logo.png')
+      }
+    ]
   end
 
   def my_dogs
