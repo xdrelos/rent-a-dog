@@ -10,7 +10,7 @@ require 'faker'
 50.times do
   Dog.create!(
     name: Faker::FunnyName.name,
-    breed: ["German Shepherd", "Pomeranian", "Labarador", "Husky", "Bulldog", "Poodle", "Golden Retriever", "Rottweiller", "Yorkshire"].sample,
+    breed: ["German Shepherd", "Pomeranian", "Labrador", "Husky", "Bulldog", "Poodle", "Golden Retriever", "Rottweiller", "Yorkshire"].sample,
     description: Faker::Lorem.paragraph(sentence_count: 10),
     palmares: rand(1..50),
     city: Faker::Address.city,
