@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     resources :rentings, only: [:create, :update]
   end
   # route for fix the refresh after render a post with errors
-  get 'dogs/:id/rentings', to: redirect('rentings/my-rentings')
   resources :rentings, only: [:edit, :destroy]
   get 'rentings/my-rentings', to: 'rentings#my_rentings'
 
