@@ -1,0 +1,5 @@
+<%= simple_form_for([ @dog, @review ], remote: true) do |f| %>
+  <%= f.input :content, input_html: {class: "rounded-pill"} %>
+  <%= f.input :rating, collection: (1..5).to_a %>
+  <%= f.button :submit, class: "btn btn-outline-success rounded-pill btn-block" %>
+<% end %>

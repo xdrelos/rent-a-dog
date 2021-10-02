@@ -28,7 +28,6 @@
         <h3>A bit more about this dog...</h3>
         <hr>
         <p><%= @dog.description %></p>
-        <!-- <img class="map" src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @dog.city %>&zoom=13&scale=2&size=1000x1000&maptype=roadmap&markers=color:red%7C<%= @dog.city %>&key=<%= ENV["GOOGLE_MAP"] %>" alt=""> -->
         <div id="map"
            style="width: 100%; height: 400px;"
            data-markers="<%= @markers.to_json %>"
@@ -46,6 +45,25 @@
             </div>
         </div>
       <% end -%>
+      <div class="dog-show-card">
+        <h3>
+          <%= pluralize @dog.reviews.size, "review" %>
+        </h3>
+        <% if policy(@review).create? %>
+          <%= render "reviews/form" %>
+        <% end -%>
+        <hr>
+        <div id="reviews" class="mt-3">
+          <% if @dog.reviews.blank? %>
+            Be the first to leave a review for <%= @dog.name %>.
+          <% else %>
+            <% @dog.reviews.each do |review| %>
+              <p id="review-<%= review.id %>"><%= icon('fas','star', class: 'text-warning') * review.rating %> by <%= review.user.username %></p>
+              <p><%= review.content %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="col-12 col-xs-12 col-sm-12 col-lg-4">
       <div class="dog-show-card">
@@ -90,5 +108,4 @@
       </div>
     </div>
   </div>
-
 </div>

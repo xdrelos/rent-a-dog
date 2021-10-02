@@ -21,6 +21,7 @@ class DogsController < ApplicationController
 
   def show
     @renting = Renting.new
+    @review = Review.new
     authorize @dog
     @markers =[
       {
