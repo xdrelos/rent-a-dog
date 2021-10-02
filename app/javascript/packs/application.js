@@ -38,4 +38,9 @@ document.addEventListener('turbolinks:load', () => {
   initStarRating();
 });
 
+// to fix when we render with errors
+$(document).on('turbolinks:load', function() {
+ initStarRating();
+})
+
 //import "controllers"
