@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :dog
+  belongs_to :user
   validates :rating, :content, presence: true
   validates :content, length: { minimum: 20 }
   validates :rating, numericality: { only_integer: true }

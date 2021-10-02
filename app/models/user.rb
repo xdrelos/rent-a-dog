@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
   has_many :dogs
   has_many :rentings
+  has_many :reviews
 
   def login
     @login || self.username || self.email
