@@ -9,21 +9,33 @@ class DogsController < ApplicationController
     else
       @pagy, @dogs = pagy(policy_scope(Dog).all.order(:palmares), items: 10)
     end
-
-    @markers = @dogs.geocoded.map do |dog|
-      {
-        lat: dog.latitude,
-        lng: dog.longitude,
-        image_url: helpers.asset_url('logo.png')
-      }
+    @markers = []
+    @dogs.each do |dog|
+      if dog.geocoded?
+        @markers <<
+        {
+          lat: dog.latitude,
+          lng: dog.longitude,
+          image_url: helpers.asset_url('logo.png')
+        }
+      end
     end
+    # doesnt work for all records geocoded bugged?
+    # @markers = @dogs.geocoded.map do |dog|
+    #   {
+    #     lat: dog.latitude,
+    #     lng: dog.longitude,
+    #     image_url: helpers.asset_url('logo.png')
+    #   }
+    # end
+
   end
 
   def show
     @renting = Renting.new
     @review = Review.new
     authorize @dog
-    @markers =[
+    @markers = [
       {
         lat: @dog.latitude,
         lng: @dog.longitude,
