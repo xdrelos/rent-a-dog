@@ -890,6 +890,11 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.2.tgz#30aa825f11d438671d585bd44e7fd564535fc210"
   integrity sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==
 
+"@hotwired/stimulus@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.0.0.tgz#45171e61417af60f0e546665c52fae5b67295cee"
+  integrity sha512-UFIuuf7GjKJoIYromuTmqfzT8gZ8eu5zIB5m2QoEsopymGeN7rfDSTRPyRfwHIqP0x+0vWo4O1LFozw+/sWXxg==
+
 "@mapbox/geojson-rewind@^0.5.0":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@mapbox/geojson-rewind/-/geojson-rewind-0.5.1.tgz#adbe16dc683eb40e90934c51a5e28c7bbf44f4e1"
@@ -4409,7 +4414,14 @@ jest-worker@^25.4.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jquery@^3.6.0:
+jquery-bar-rating@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/jquery-bar-rating/-/jquery-bar-rating-1.2.2.tgz#9594d662cff9deb0fe7b372511bb2492a436f392"
+  integrity sha1-lZTWYs/53rD+ezclEbskkqQ285I=
+  dependencies:
+    jquery ">=1.7.2"
+
+jquery@>=1.7.2, jquery@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
@@ -7308,6 +7320,13 @@ stdout-stream@^1.4.0:
   integrity sha512-j4emi03KXqJWcIeF8eIXkjMFN1Cmb8gUlDYGeBALLPo5qdyTfA9bOtl8m33lRoC+vFMkP3gl0WsDr6+gzxbbTA==
   dependencies:
     readable-stream "^2.0.1"
+
+stimulus@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/stimulus/-/stimulus-3.0.0.tgz#90f7a7bc62e57f3852adaf33c01fea5f80401142"
+  integrity sha512-vINtZ6C43PWIqAv04oE/gKdfFPbVlWdClPUegFeAg1dTJABuzFTcnIOufgbMNAQQHFJeEhcgcLtEeiwtyYzNlg==
+  dependencies:
+    "@hotwired/stimulus" "^3.0.0"
 
 stream-browserify@^2.0.1:
   version "2.0.2"

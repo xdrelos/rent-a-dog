@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
     p @review.errors
     if @review.save
       flash[:notice] = "Review sent."
-      redirect_to dog_path(@dog)
+      redirect_to dog_path(@dog, anchor: "review-#{@review.id}")
     else
       @renting = Renting.new
       render 'dogs/show'

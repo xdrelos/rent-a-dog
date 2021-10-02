@@ -26,6 +26,7 @@ require("channels")
 import "bootstrap";
 import { initMapbox } from '../plugins/init_mapbox.js';
 import { initAutocomplete } from '../plugins/init_autocomplete.js';
+import { initStarRating } from '../plugins/init_star_rating.js';
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -34,4 +35,7 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
   initMapbox();
   initAutocomplete();
+  initStarRating();
 });
+
+//import "controllers"
