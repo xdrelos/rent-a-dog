@@ -4,7 +4,10 @@ class Dog < ApplicationRecord
   has_one_attached :profile_picture
   has_many_attached :pictures
   has_many :rentings
+  has_many :reviews
+
   include PgSearch::Model
+
   geocoded_by :city
   after_validation :geocode, if: :will_save_change_to_city?
 
