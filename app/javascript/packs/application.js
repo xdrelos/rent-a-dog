@@ -43,4 +43,4 @@ $(document).on('turbolinks:load', function() {
  initStarRating();
 })
 
-//import "controllers"
+import "controllers"
