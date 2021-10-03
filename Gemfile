@@ -40,6 +40,7 @@ gem 'active_link_to'
 gem 'pundit'
 gem 'turbolinks_render'
 gem 'geocoder'
+gem 'forest_liana'
 
 group :development, :test do
   gem 'pry-byebug'
