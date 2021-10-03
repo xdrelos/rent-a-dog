@@ -49,19 +49,24 @@
         <h3>
           <%= pluralize @dog.reviews.size, "review" %>
         </h3>
-        <% if policy(@review).create? %>
-          <%= render "reviews/form" %>
-        <% end -%>
-        <hr>
-        <div id="reviews" class="mt-3">
-          <% if @dog.reviews.blank? %>
-            Be the first to leave a review for <%= @dog.name %>.
-          <% else %>
-            <% @dog.reviews.each do |review| %>
-              <p id="review-<%= review.id %>"><%= icon('fas','star', class: 'text-warning') * review.rating %> by <%= review.user.username %></p>
-              <p><%= review.content %></p>
-            <% end %>
-          <% end %>
+        <div data-controller="insert-in-list">
+
+          <% if policy(@review).create? %>
+            <%= render "reviews/form" %>
+          <% end -%>
+          <hr>
+          <div data-insert-in-list-target="items">
+            <div id="reviews" class="mt-3">
+              <% if @dog.reviews.blank? %>
+                Be the first to leave a review for <%= @dog.name %>.
+              <% else %>
+                <% @dog.reviews.each do |review| %>
+                  <p id="review-<%= review.id %>"><%= icon('fas','star', class: 'text-warning') * review.rating %> by <%= review.user.username %></p>
+                  <p><%= review.content %></p>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
