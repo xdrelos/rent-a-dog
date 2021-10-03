@@ -1,4 +1,5 @@
-<%= simple_form_for([ @dog, @review ], remote: true, data: { insert_in_list_target: 'form', action: 'submit->insert-in-list#send' }) do |f| %>
+<h3><%= pluralize dog.reviews.size, "review" %></h3>
+<%= simple_form_for([ dog, review ], data: { insert_in_list_target: 'form', action: 'submit->insert-in-list#send' }) do |f| %>
   <%= f.input :content, input_html: {class: "rounded-pill"} %>
   <%= f.input :rating, collection: (1..5).to_a %>
   <%= f.button :submit, class: "btn btn-outline-success rounded-pill btn-block" %>

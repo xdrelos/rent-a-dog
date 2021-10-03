@@ -46,17 +46,21 @@
         </div>
       <% end -%>
       <div class="dog-show-card">
-        <h3>
-          <%= pluralize @dog.reviews.size, "review" %>
-        </h3>
-        <div data-controller="insert-in-list">
 
+        <div data-controller="insert-in-list">
+          <h3 data-insert-in-list-target="count">
+            <%= pluralize @dog.reviews.size, "review" %>
+          </h3>
           <% if policy(@review).create? %>
-            <%= render "reviews/form" %>
+            <%= simple_form_for([ @dog, @review ], data: { insert_in_list_target: 'form', action: 'submit->insert-in-list#send' }) do |f| %>
+              <%= f.input :content, input_html: {class: "rounded-pill"} %>
+              <%= f.input :rating, collection: (1..5).to_a %>
+              <%= f.button :submit, class: "btn btn-outline-success rounded-pill btn-block" %>
+            <% end %>
           <% end -%>
           <hr>
           <div data-insert-in-list-target="items">
-            <div id="reviews" class="mt-3">
+
               <% if @dog.reviews.blank? %>
                 Be the first to leave a review for <%= @dog.name %>.
               <% else %>
@@ -65,7 +69,7 @@
                   <p><%= review.content %></p>
                 <% end %>
               <% end %>
-            </div>
+
           </div>
         </div>
       </div>
