@@ -13,6 +13,8 @@ class RentingsController < ApplicationController
       flash[:notice] = "Renting created successfully."
       redirect_to dog_path(@dog)
     else
+      @review = Review.new
+      @pagy, @reviews = pagy(@dog.reviews.order('created_at DESC'), items: 5)
       render "dogs/show"
     end
   end
