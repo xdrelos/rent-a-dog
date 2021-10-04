@@ -3,7 +3,7 @@ import { csrfToken } from "@rails/ujs";
 import { initStarRating } from '../plugins/init_star_rating.js';
 
 export default class extends Controller {
-  static targets = ['items', 'form', 'count'];
+  static targets = ['items', 'form', 'noitems'];
 
   connect() {
     console.log(this.element);
@@ -13,7 +13,6 @@ export default class extends Controller {
   }
   send(event) {
     event.preventDefault();
-    console.log(this.formTarget.action)
     fetch(this.formTarget.action, {
         method: 'POST',
         headers: { 'Accept': "application/json", 'X-CSRF-Token': csrfToken() },
@@ -22,9 +21,12 @@ export default class extends Controller {
       .then(response => response.json())
       .then((data) => {
         if (data.inserted_item) {
-          this.itemsTarget.insertAdjacentHTML("beforeend", data.inserted_item);
-          this.countTarget.style.display = 'none'
+          this.itemsTarget.insertAdjacentHTML("beforebegin", data.inserted_item);
+          if(this.hasNoitemsTarget){
+            this.noitemsTarget.remove();
+          }
         }
+        //this.countTarget.remove();
         this.formTarget.outerHTML = data.form;
         initStarRating();
       });
