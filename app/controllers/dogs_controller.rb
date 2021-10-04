@@ -42,6 +42,7 @@ class DogsController < ApplicationController
         image_url: helpers.asset_url('logo.png')
       }
     ]
+    @pagy, @reviews = pagy(@dog.reviews.order('created_at DESC'), items: 5)
   end
 
   def my_dogs
