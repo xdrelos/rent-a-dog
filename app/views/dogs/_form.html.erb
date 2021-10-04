@@ -1,6 +1,6 @@
 <%= simple_form_for(@dog) do |f| %>
   <%= f.input :name, input_html: {class: 'rounded-pill'} %>
-  <%= f.input :breed, input_html: {class: 'rounded-pill'} %>
+  <%= f.association :breed, collection: Breed.all.order(:name), input_html: {class: 'select2'} %>
   <%= f.input :description, input_html: {class: 'rounded-pill'} %>
   <%= f.input :city, input_html: {class: 'rounded-pill'} %>
   <%= f.input :age, input_html: {class: 'rounded-pill'} %>

@@ -27,6 +27,7 @@ import "bootstrap";
 import { initMapbox } from '../plugins/init_mapbox.js';
 import { initAutocomplete } from '../plugins/init_autocomplete.js';
 import { initStarRating } from '../plugins/init_star_rating.js';
+import { initSelect2 } from '../plugins/init_select2.js';
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -36,6 +37,7 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initAutocomplete();
   initStarRating();
+  initSelect2();
 });
 
 // to fix when we render with errors

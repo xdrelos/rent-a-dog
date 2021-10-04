@@ -5,7 +5,7 @@ class Dog < ApplicationRecord
   has_many_attached :pictures
   has_many :rentings
   has_many :reviews
-
+  belongs_to :breed
   include PgSearch::Model
 
   geocoded_by :city

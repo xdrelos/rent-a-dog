@@ -15,7 +15,7 @@
             <div class="card-dog-infos">
               <div>
                 <h2><%= dog.name %></h2>
-                <p><%= dog.breed %></p>
+                <p><%= dog.breed.name %></p>
                 <p><%= dog.description.truncate(75, separator: ' ') %></p>
               </div>
               <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
