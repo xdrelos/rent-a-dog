@@ -37,10 +37,16 @@ results = JSON.parse(file)
 results["message"].each do |result|
   if result[1]
     result[1].each do |subreed|
-      Breed.create!(name: "#{subreed} #{result[0]}".capitalize)
+      url = "https://dog.ceo/api/breed/#{result[0]}/#{subreed}/images/random"
+      file = open(url).read
+      image = JSON.parse(file)
+      Breed.create!(name: "#{subreed} #{result[0]}".capitalize, image: image["message"])
     end
   else
-    Breed.create!(name: result[0].capitalize)
+    url = "https://dog.ceo/api/breed/#{result[0]}/images/random"
+    file = open(url).read
+    image = JSON.parse(file)
+    Breed.create!(name: result[0].capitalize, image: image["message"])
   end
 end
 
