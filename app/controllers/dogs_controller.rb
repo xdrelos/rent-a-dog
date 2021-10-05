@@ -96,7 +96,7 @@ class DogsController < ApplicationController
   end
 
   def dog_params
-    params.require(:dog).permit(:name, :breed, :description, :city, :age, :palmares, :price_per_hour, :profile_picture, pictures: [])
+    params.require(:dog).permit(:name, :breed_id, :description, :city, :age, :palmares, :price_per_hour, :profile_picture, pictures: [])
   end
 
 

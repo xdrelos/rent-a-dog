@@ -49,6 +49,8 @@ results["message"].each do |result|
     Breed.create!(name: result[0].capitalize, image: image["message"])
   end
 end
+Breed.create!(name: "Dobermann", image: "https://images.unsplash.com/photo-1556546346-ad2946663684?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80")
+Breed.create!(name: "Rottweiller", image: "https://images.unsplash.com/photo-1555786720-3be8246525f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
 
 25.times do
   Dog.create!(
