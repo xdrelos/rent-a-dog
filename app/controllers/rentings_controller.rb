@@ -11,7 +11,7 @@ class RentingsController < ApplicationController
     @renting.status = "Pending"
     if @renting.save
       flash[:notice] = "Renting created successfully."
-      redirect_to dog_path(@dog)
+      redirect_to rentings_my_rentings_path
     else
       @review = Review.new
       @pagy, @reviews = pagy(@dog.reviews.order('created_at DESC'), items: 5)
