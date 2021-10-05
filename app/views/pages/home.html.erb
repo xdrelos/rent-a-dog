@@ -8,35 +8,38 @@
   </div>
 </div>
 <div class="container">
-  <div class="card p-3">
-  <h2>Our last dogs for rent</h2>
-  <hr>
-  <div class="cards">
-    <% @dogs.each do |dog| %>
-      <%= link_to dog_path(dog), class:"no-links" do %>
-        <div class="card-dog">
-          <% if dog.profile_picture.attached? %>
-            <%= cl_image_tag(dog.profile_picture.key) %>
-          <% else %>
-            <!-- <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" /> -->
-            <img src="<%= dog.breed.image %>" />
-          <% end -%>
-          <div class="card-dog-infos">
-            <div>
-              <h2><%= dog.name %></h2>
-              <p><%= dog.breed.name %></p>
-              <p><%= dog.description.truncate(75, separator: ' ') %></p>
+  <div class="card">
+    <div class="card-header">
+      <h2>Our last dogs for rent</h2>
+    </div>
+    <div class="card-body">
+      <div class="cards">
+        <% @dogs.each do |dog| %>
+          <%= link_to dog_path(dog), class:"no-links" do %>
+            <div class="card-dog">
+              <% if dog.profile_picture.attached? %>
+                <%= cl_image_tag(dog.profile_picture.key) %>
+              <% else %>
+                <!-- <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" /> -->
+                <img src="<%= dog.breed.image %>" />
+              <% end -%>
+              <div class="card-dog-infos">
+                <div>
+                  <h2><%= dog.name %></h2>
+                  <p><%= dog.breed.name %></p>
+                  <p><%= dog.description.truncate(75, separator: ' ') %></p>
+                </div>
+                <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
+                <% if dog.user.profile_picture.attached? %>
+                  <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
+                <% else %>
+                  <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
+                <% end -%>
+              </div>
             </div>
-            <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
-            <% if dog.user.profile_picture.attached? %>
-              <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
-            <% else %>
-              <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
-            <% end -%>
-          </div>
-        </div>
-      <% end -%>
-    <% end -%>
+          <% end -%>
+        <% end -%>
+      </div>
+    </div>
   </div>
-</div>
 </div>
