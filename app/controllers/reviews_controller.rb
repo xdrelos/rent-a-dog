@@ -9,13 +9,13 @@ class ReviewsController < ApplicationController
     p @review.errors
     respond_to do |format|
       if @review.save
-        format.html {
+        format.html do
           flash[:notice] = "Review sent."
           redirect_to dog_path(@dog, anchor: "review-#{@review.id}")
-           }
+        end
         format.json # Follow the classic Rails flow and look for a create.json view
       else
-        format.html {
+        format.html do
           @markers = [
                   {
                     lat: @dog.latitude,
@@ -24,7 +24,8 @@ class ReviewsController < ApplicationController
                   }
                 ]
           @renting = Renting.new
-          render 'dogs/show' }
+          render 'dogs/show'
+        end
         format.json # Follow the classic Rails flow and look for a create.json view
       end
     end

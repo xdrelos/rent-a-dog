@@ -6,10 +6,7 @@ export default class extends Controller {
   static targets = ['items', 'form', 'noitems'];
 
   connect() {
-    console.log(this.element);
-    console.log(this.itemsTarget);
-    console.log(this.formTarget);
-    console.log(this.countTarget);
+
   }
   send(event) {
     event.preventDefault();

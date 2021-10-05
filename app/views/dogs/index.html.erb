@@ -4,46 +4,50 @@
    data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 </div>
 <div class="container">
-  <div class="card p-3">
-  <h1>Dogs available for rent</h1>
-  <%= form_tag dogs_path, method: :get, class: "form-inline mb-3" do %>
-    <%= text_field_tag :query,
-      params[:query],
-      class: "form-control rounded-pill",
-      type: "search",
-      placeholder: "Find a dog"
-    %>
-    <%= submit_tag "Search", class: "btn btn-outline-primary rounded-pill ml-3" %>
-  <% end %>
-  <hr>
-  <%== pagy_bootstrap_nav(@pagy) %>
+  <div class="card">
+    <div class="card-header">
+      <h1>Dogs available for rent</h1>
+    </div>
+    <div class="card-body">
+      <%= form_tag dogs_path, method: :get, class: "form-inline mb-3" do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control rounded-pill",
+          type: "search",
+          placeholder: "Find a dog"
+        %>
+        <%= submit_tag "Search", class: "btn btn-outline-primary rounded-pill ml-3" %>
+      <% end %>
 
-  <div class="cards">
-    <% @dogs.each do |dog| %>
-      <%= link_to dog_path(dog), class:"no-links" do %>
-        <div class="card-dog">
-          <% if dog.profile_picture.attached? %>
-            <%= cl_image_tag(dog.profile_picture.key) %>
-          <% else %>
-            <!-- <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" /> -->
-            <img src="<%= dog.breed.image %>" />
-          <% end -%>
-          <div class="card-dog-infos">
-            <div>
-              <h2><%= dog.name %></h2>
-              <p><%= dog.breed.name %></p>
-              <p><%= dog.description.truncate(75, separator: ' ') %></p>
+      <%== pagy_bootstrap_nav(@pagy) %>
+
+      <div class="cards">
+        <% @dogs.each do |dog| %>
+          <%= link_to dog_path(dog), class:"no-links" do %>
+            <div class="card-dog">
+              <% if dog.profile_picture.attached? %>
+                <%= cl_image_tag(dog.profile_picture.key) %>
+              <% else %>
+                <!-- <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" /> -->
+                <img src="<%= dog.breed.image %>" />
+              <% end -%>
+              <div class="card-dog-infos">
+                <div>
+                  <h2><%= dog.name %></h2>
+                  <p><%= dog.breed.name %></p>
+                  <p><%= dog.description.truncate(75, separator: ' ') %></p>
+                </div>
+                <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
+                <% if dog.user.profile_picture.attached? %>
+                  <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
+                <% else %>
+                  <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
+                <% end -%>
+              </div>
             </div>
-            <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
-            <% if dog.user.profile_picture.attached? %>
-              <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
-            <% else %>
-              <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
-            <% end -%>
-          </div>
-        </div>
-      <% end -%>
-    <% end -%>
-  </div>
+          <% end -%>
+        <% end -%>
+      </div>
+    </div>
   </div>
 </div>
