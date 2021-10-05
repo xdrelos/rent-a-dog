@@ -5,7 +5,7 @@
 
     <div class="cards">
       <% current_user.dogs.each do |dog| %>
-        <%= link_to "#{dog_path(dog)}?page=my-dogs", class:"no-links" do %>
+        <%= link_to "#{dog_path(dog)}?from=my-dogs", class:"no-links" do %>
           <div class="card-dog">
             <% if dog.profile_picture.attached? %>
               <%= cl_image_tag(dog.profile_picture.key) %>

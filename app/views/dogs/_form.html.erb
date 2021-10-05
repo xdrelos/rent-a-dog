@@ -1,4 +1,4 @@
-<%= simple_form_for(@dog) do |f| %>
+<%= simple_form_for(@dog, remote: true) do |f| %>
   <%= f.input :name, input_html: {class: 'rounded-pill'} %>
   <%= f.association :breed, collection: Breed.all.order(:name), input_html: {class: 'select2'} %>
   <%= f.input :description, input_html: {class: 'rounded-pill'} %>
