@@ -1,0 +1,51 @@
+<div class="container mt-3">
+  <div class="card p-3">
+    <div class="row">
+      <div class="col-10">
+        <h1><%= @user.username %>'s profile</h1>
+
+      </div>
+      <div class="col-2 text-right">
+        <% if @user.profile_picture.attached? %>
+          <img src="<%= cl_image_path(@user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
+        <% else %>
+          <%= image_tag "no-avatar.png", class: "card-dog-user avatar-large" %>
+        <% end -%>
+      </div>
+    </div>
+    <hr>
+    <h3>Biography</h3>
+    <p><%= @user.biography %></p>
+  </div>
+  <div class="card p-3 mt-3">
+    <h2>His <%= pluralize(@user.dogs.count, "dog") %></h2>
+    <hr>
+    <div class="cards">
+      <% @user.dogs.each do |dog| %>
+        <%= link_to "#{dog_path(dog)}", class:"no-links" do %>
+          <div class="card-dog">
+            <% if dog.profile_picture.attached? %>
+              <%= cl_image_tag(dog.profile_picture.key) %>
+            <% else %>
+              <!-- <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" /> -->
+              <img src="<%= dog.breed.image %>" />
+            <% end -%>
+            <div class="card-dog-infos">
+              <div>
+                <h2><%= dog.name %></h2>
+                <p><%= dog.breed.name %></p>
+                <p><%= dog.description.truncate(75, separator: ' ') %></p>
+              </div>
+              <h2 class="card-dog-pricing">€<%= dog.price_per_hour %></h2>
+              <% if dog.user.profile_picture.attached? %>
+                <img src="<%= cl_image_path(dog.user.profile_picture.key) %> " class="card-dog-user avatar-bordered" />
+              <% else %>
+                <%= image_tag "no-avatar.png", class: "card-dog-user avatar-bordered" %>
+              <% end -%>
+            </div>
+          </div>
+        <% end -%>
+      <% end -%>
+    </div>
+  </div>
+</div>
