@@ -16,6 +16,7 @@
       </div>
     </div>
     <div class="card-body">
+
       <div class="card rounded-lg mb-3">
         <div class="card-header">
           <h3>Biography</h3>
@@ -25,25 +26,30 @@
         </div>
       </div>
 
-      <div class="card rounded-lg mb-3">
-        <div class="card-header">
-          <h3>Rentings approvals</h3>
+      <div class="row">
+        <div class="col-6">
+          <div class="card rounded-lg">
+            <div class="card-header">
+              <h3>Rentings approvals</h3>
+            </div>
+            <div class="card-body">
+              <p>Rentings pending: <%= @user.dogs.joins(:rentings).where('rentings.status=?',"Pending").count %></p>
+              <p>Rentings accepted: <%= @user.dogs.joins(:rentings).where('rentings.status=?',"Accepted").count %></p>
+              <p>Rentings declined: <%= @user.dogs.joins(:rentings).where('rentings.status=?',"Declined").count %></p>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <p>Rentings pending: <%= @user.dogs.joins(:rentings).where('rentings.status=?',"Pending").count %></p>
-          <p>Rentings accepted: <%= @user.dogs.joins(:rentings).where('rentings.status=?',"Accepted").count %></p>
-          <p>Rentings declined: <%= @user.dogs.joins(:rentings).where('rentings.status=?',"Declined").count %></p>
-        </div>
-      </div>
-
-      <div class="card rounded-lg">
-        <div class="card-header">
-          <h3>Rentings made</h3>
-        </div>
-        <div class="card-body">
-          <p>Rentings pending: <%= @user.rentings.where('rentings.status=?',"Pending").count %></p>
-          <p>Rentings accepted: <%= @user.rentings.where('rentings.status=?',"Accepted").count %></p>
-          <p>Rentings declined: <%= @user.rentings.where('rentings.status=?',"Declined").count %></p>
+        <div class="col-6">
+          <div class="card rounded-lg">
+            <div class="card-header">
+              <h3>Rentings made</h3>
+            </div>
+            <div class="card-body">
+              <p>Rentings pending: <%= @user.rentings.where('rentings.status=?',"Pending").count %></p>
+              <p>Rentings accepted: <%= @user.rentings.where('rentings.status=?',"Accepted").count %></p>
+              <p>Rentings declined: <%= @user.rentings.where('rentings.status=?',"Declined").count %></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
