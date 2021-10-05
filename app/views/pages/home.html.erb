@@ -18,7 +18,8 @@
           <% if dog.profile_picture.attached? %>
             <%= cl_image_tag(dog.profile_picture.key) %>
           <% else %>
-            <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" />
+            <!-- <img src="https://source.unsplash.com/collection/3816141/1600x900?sig=<%= rand(1..1000) %>" /> -->
+            <img src="<%= dog.breed.image %>" />
           <% end -%>
           <div class="card-dog-infos">
             <div>
