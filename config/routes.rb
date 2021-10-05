@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # mount ForestLiana::Engine => '/forest'
   devise_for :users
+  resources :users, only: :show
   root to: 'pages#home'
   get 'dogs/my-dogs', to: 'dogs#my_dogs'
   resources :dogs do

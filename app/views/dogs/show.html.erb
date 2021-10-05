@@ -13,12 +13,14 @@
             <h2><%= @dog.name %></h2>
           </div>
           <div class="col-2">
+            <%= link_to user_path(@dog.user) do %>
             <% if @dog.user.profile_picture.attached? %>
               <%= cl_image_tag @dog.user.profile_picture.key, class: "avatar-large" %>
             <% else %>
               <%= image_tag "no-avatar.png", class: "avatar-large" %>
             <% end %>
             <%= @dog.user.username %>
+            <% end -%>
           </div>
         </div>
         <hr>
