@@ -5,9 +5,9 @@ class DogsController < ApplicationController
 
   def index
     if params[:query] && !params[:query].empty?
-      @pagy, @dogs = pagy(policy_scope(Dog).global_search(params[:query]).order(:palmares), items: 10)
+      @pagy, @dogs = pagy(policy_scope(Dog).where.not(user: current_user).global_search(params[:query]).order(:palmares), items: 10)
     else
-      @pagy, @dogs = pagy(policy_scope(Dog).all.order(:palmares), items: 10)
+      @pagy, @dogs = pagy(policy_scope(Dog).all.where.not(user: current_user).order(:palmares), items: 10)
     end
     @markers = []
     @dogs.each do |dog|
