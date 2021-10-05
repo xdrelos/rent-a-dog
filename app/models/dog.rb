@@ -4,7 +4,7 @@ class Dog < ApplicationRecord
   has_one_attached :profile_picture
   has_many_attached :pictures
   has_many :rentings
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   belongs_to :breed
   include PgSearch::Model
 
@@ -12,7 +12,8 @@ class Dog < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_city?
 
   pg_search_scope :global_search,
-    against: [ :name, :breed, :description, :city ],
+    against: [ :name, :description, :city ],
+    associated_against: { breed: :name },
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }

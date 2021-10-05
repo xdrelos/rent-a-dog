@@ -85,8 +85,13 @@ class DogsController < ApplicationController
 
   def destroy
     authorize @dog
-    @dog.destroy
-    redirect_to dogs_path
+    if @dog.rentings.blank?
+      @dog.destroy
+      redirect_to dogs_path
+    else
+      flash[:alert] = "You cannot delete this dog, rentings are attached."
+      redirect_to @dog
+    end
   end
 
   private
