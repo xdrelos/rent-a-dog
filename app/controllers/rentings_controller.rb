@@ -1,5 +1,5 @@
 class RentingsController < ApplicationController
-  before_action :set_renting, only: [:edit, :update, :destroy]
+  before_action :set_renting, only: [:edit, :update, :validate, :destroy]
   skip_after_action :verify_authorized, only: [:my_rentings]
 
   def create
@@ -9,6 +9,7 @@ class RentingsController < ApplicationController
     @renting.dog = @dog
     @renting.user = current_user
     @renting.status = "Pending"
+    @renting.total_price = @dog.price_per_hour * @renting.number_of_hours
     if @renting.save
       flash[:notice] = "Renting created successfully."
       redirect_to rentings_my_rentings_path
@@ -28,42 +29,42 @@ class RentingsController < ApplicationController
   end
 
   def update
-    if params[:renting][:status]
-      params.require(:renting).permit(:status)
-      authorize @renting
-      if params[:renting][:status] == "Accept"
-        @renting.status = "Accepted"
-        if @renting.save
-          flash[:notice] = "Renting successfully accepted."
-          redirect_to rentings_my_rentings_path
-        else
-          flash[:alert] = "Couldn't validate the renting."
-          render :my_rentings
-        end
-      elsif params[:renting][:status] == "Decline"
-        @renting.status = "Declined"
-        if @renting.save
-          flash[:notice] = "Renting successfully declined."
-          redirect_to rentings_my_rentings_path
-        else
-          flash[:alert] = "Couldn't validate the renting."
-          render :my_rentings
-        end
-      else
-        render :my_rentings
-      end
-
+    @renting.update(renting_params)
+    authorize @renting
+    @renting.total_price = @dog.price_per_hour * @renting.number_of_hours
+    @dog = @renting.dog
+    if @renting.save
+      flash[:notice] = "Renting updated successfully."
+      redirect_to rentings_my_rentings_path
     else
+      render 'edit'
+    end
+  end
 
-      @renting.update(renting_params)
-      authorize @renting
-      @dog = @renting.dog
+  def validate
+    params.require(:renting).permit(:status)
+    authorize @renting
+    if params[:renting][:status] == "Accept"
+      @renting.status = "Accepted"
       if @renting.save
-        flash[:notice] = "Renting updated successfully."
+        flash[:notice] = "Renting successfully accepted."
         redirect_to rentings_my_rentings_path
       else
-        render 'edit'
+        flash[:alert] = "Couldn't validate the renting."
+        render :my_rentings
       end
+    elsif params[:renting][:status] == "Decline"
+      @renting.status = "Declined"
+      if @renting.save
+        flash[:notice] = "Renting successfully declined."
+        redirect_to rentings_my_rentings_path
+      else
+        flash[:alert] = "Couldn't validate the renting."
+        render :my_rentings
+      end
+    else
+      flash[:alert] = "Couldn't validate the renting."
+      render :my_rentings
     end
   end
 
