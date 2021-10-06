@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :rentings, only: [:create, :update]
     resources :reviews, only: :create
   end
+  patch 'rentings/:id', to: 'rentings#validate', as: :validate_renting
   # route for fix the refresh after render a post with errors
   resources :rentings, only: [:edit, :destroy]
   get 'rentings/my-rentings', to: 'rentings#my_rentings'

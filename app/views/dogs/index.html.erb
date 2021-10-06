@@ -20,7 +20,6 @@
       <% end %>
 
       <%== pagy_bootstrap_nav(@pagy) %>
-
       <div class="cards">
         <% @dogs.each do |dog| %>
           <%= link_to dog_path(dog), class:"no-links" do %>

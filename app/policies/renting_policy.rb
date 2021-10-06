@@ -10,7 +10,11 @@ class RentingPolicy < ApplicationPolicy
   end
 
   def update?
-    (record.user == user || record.dog.user == user) && record.pending? # Only restaurant creator can update it
+    record.user == user && record.pending? # Only restaurant creator can update it
+  end
+
+  def validate?
+    record.dog.user == user && record.pending?
   end
 
   def destroy?
