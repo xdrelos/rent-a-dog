@@ -33,8 +33,13 @@ class DogsController < ApplicationController
 
   def show
     @renting = Renting.new
+    # for renting policy create? to work
+    @renting.dog = @dog
     @review = Review.new
+    # for review policy create? to work
+    @review.dog = @dog
     authorize @dog
+
     @markers = [
       {
         lat: @dog.latitude,

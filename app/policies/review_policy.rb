@@ -6,6 +6,6 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    record.dog.user != user
   end
 end

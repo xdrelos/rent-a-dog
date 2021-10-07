@@ -53,17 +53,14 @@
         <div data-controller="insert-in-list">
 
           <% if policy(@review).create? %>
-            <%= simple_form_for([ @dog, @review ], data: { insert_in_list_target: 'form', action: 'submit->insert-in-list#send' }) do |f| %>
-              <h3>
-                <%= pluralize @dog.reviews.size, "review" %>
-              </h3>
-              <%= f.input :content, input_html: {class: "rounded-pill"} %>
-              <%= f.input :rating, collection: (1..5).to_a %>
-              <%= f.button :submit, class: "btn btn-outline-success rounded-pill btn-block" %>
-            <% end %>
+            <%= render 'reviews/form' %>
+          <% else %>
+            <h3><%= pluralize @dog.reviews.size, "review" %></h3>
           <% end -%>
           <hr>
-          <%== pagy_bootstrap_nav(@pagy) %>
+          <div data-insert-in-list-target="pagination">
+            <%== pagy_bootstrap_nav(@pagy) %>
+          </div>
           <div data-insert-in-list-target="items">
               <% if @reviews.blank? %>
                 <p data-insert-in-list-target="noitems">Be the first to leave a review for <%= @dog.name %>.</p>
@@ -73,7 +70,6 @@
                   <p><%= review.content %></p>
                 <% end %>
               <% end %>
-
           </div>
         </div>
       </div>
@@ -82,7 +78,11 @@
       <div class="dog-show-card">
         <h5>Rent this dog</h5>
         <hr>
-        <%= render 'rentings/form' %>
+        <% if policy(@renting).create? %>
+          <%= render 'rentings/form' %>
+        <% else %>
+          <p>You cannot rent your own dog.</p>
+        <% end -%>
       </div>
       <div class="dog-show-card">
         <h3>Details</h3>

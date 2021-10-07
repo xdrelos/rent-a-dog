@@ -1,2 +1,4 @@
-<p id="review-<%= review.id %>"><%= icon('fas','star', class: 'text-warning') * review.rating %> by <%= review.user.username %></p>
-<p><%= review.content %></p>
+<% @reviews.each do |review| %>
+  <p id="review-<%= review.id %>"><%= icon('fas','star', class: 'text-warning') * review.rating %> by <%= review.user.username %></p>
+  <p><%= review.content %></p>
+<% end %>

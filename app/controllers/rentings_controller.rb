@@ -5,11 +5,11 @@ class RentingsController < ApplicationController
   def create
     @dog = Dog.find(params[:dog_id])
     @renting = Renting.new(renting_params)
-    authorize @renting
     @renting.dog = @dog
     @renting.user = current_user
     @renting.status = "Pending"
     @renting.total_price = @dog.price_per_hour * @renting.number_of_hours
+    authorize @renting
     if @renting.save
       flash[:notice] = "Renting created successfully."
       redirect_to rentings_my_rentings_path
@@ -31,7 +31,7 @@ class RentingsController < ApplicationController
   def update
     @renting.update(renting_params)
     authorize @renting
-    @renting.total_price = @dog.price_per_hour * @renting.number_of_hours
+    @renting.total_price = @renting.dog.price_per_hour * @renting.number_of_hours
     @dog = @renting.dog
     if @renting.save
       flash[:notice] = "Renting updated successfully."
