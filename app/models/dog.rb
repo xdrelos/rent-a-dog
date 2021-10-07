@@ -14,6 +14,7 @@ class Dog < ApplicationRecord
   pg_search_scope :global_search,
     against: [ :name, :description, :city ],
     associated_against: { breed: :name },
+    associated_against: { user: :username },
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }

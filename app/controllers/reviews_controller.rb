@@ -5,15 +5,19 @@ class ReviewsController < ApplicationController
     @review.dog = @dog
     @review.user = current_user
     authorize @review
-    p @review.valid?
-    p @review.errors
     respond_to do |format|
       if @review.save
+        @pagy, @reviews = pagy(@dog.reviews.order('created_at DESC'), items: 5)
+
+        @review = Review.new
         format.html do
-          flash[:notice] = "Review sent."
+          flash[:notice] = "Review added successfully."
           redirect_to dog_path(@dog, anchor: "review-#{@review.id}")
         end
-        format.json # Follow the classic Rails flow and look for a create.json view
+        format.json {
+          render json: { form: render_to_string(partial: "form", formats: [:html]), inserted_item: render_to_string(partial: "dogs/review", formats: [:html]), pagination: view_context.pagy_bootstrap_nav(@pagy) }
+
+        }# Follow the classic Rails flow and look for a create.json view
       else
         format.html do
           @markers = [
@@ -26,7 +30,9 @@ class ReviewsController < ApplicationController
           @renting = Renting.new
           render 'dogs/show'
         end
-        format.json # Follow the classic Rails flow and look for a create.json view
+        format.json {
+          render json: { form: render_to_string(partial: "form", formats: [:html]) }
+        }# Follow the classic Rails flow and look for a create.json view
       end
     end
     # if @review.save

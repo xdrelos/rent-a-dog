@@ -3,7 +3,7 @@ import { csrfToken } from "@rails/ujs";
 import { initStarRating } from '../plugins/init_star_rating.js';
 
 export default class extends Controller {
-  static targets = ['items', 'form', 'noitems'];
+  static targets = ['items', 'form', 'noitems', 'pagination'];
 
   connect() {
 
@@ -18,7 +18,9 @@ export default class extends Controller {
       .then(response => response.json())
       .then((data) => {
         if (data.inserted_item) {
-          this.itemsTarget.insertAdjacentHTML("beforebegin", data.inserted_item);
+          this.paginationTarget.innerHTML = data.pagination
+          this.itemsTarget.innerHTML = data.inserted_item;
+          //this.itemsTarget.insertAdjacentHTML("beforebegin", data.inserted_item);
           if(this.hasNoitemsTarget){
             this.noitemsTarget.remove();
           }

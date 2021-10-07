@@ -6,7 +6,7 @@ class RentingPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    record.dog.user != user
   end
 
   def update?

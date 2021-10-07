@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   get 'dogs/my-dogs', to: 'dogs#my_dogs'
   resources :dogs do
     resources :rentings, only: [:create, :update]
-    resources :reviews, only: :create
+    #resources :reviews, only: :create
   end
+  post 'dogs/:dog_id', to: 'reviews#create', as: :dog_reviews
   patch 'rentings/:id', to: 'rentings#validate', as: :validate_renting
   # route for fix the refresh after render a post with errors
   resources :rentings, only: [:edit, :destroy]

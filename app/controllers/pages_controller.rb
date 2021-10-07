@@ -3,6 +3,10 @@ class PagesController < ApplicationController
 
   def home
     @dogs = Dog.all.where.not(user: current_user).order('created_at DESC').limit(6)
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def about
