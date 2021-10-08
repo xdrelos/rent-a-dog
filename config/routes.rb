@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   # mount ForestLiana::Engine => '/forest'
   devise_for :users
   resources :users, only: :show
