@@ -15,7 +15,8 @@
               <%= link_to 'Send a Message', "#{new_user_message_path(@dog.user)}?dog=#{@dog.name}", class: 'btn btn-outline-success rounded-pill' %>
             <% end -%>
           </div>
-          <div class="col-2">
+          <div class="col-2 text-center">
+            Owner:
             <%= link_to user_path(@dog.user) do %>
             <% if @dog.user.profile_picture.attached? %>
               <%= cl_image_tag @dog.user.profile_picture.key, class: "avatar-large" %>
