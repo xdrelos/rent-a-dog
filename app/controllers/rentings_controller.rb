@@ -8,13 +8,16 @@ class RentingsController < ApplicationController
     @renting.dog = @dog
     @renting.user = current_user
     @renting.status = "Pending"
-    @renting.total_price = @dog.price_per_hour * @renting.number_of_hours
+    if @renting.number_of_hours
+     @renting.total_price = @dog.price_per_hour * @renting.number_of_hours
+    end
     authorize @renting
     if @renting.save
       flash[:notice] = "Renting created successfully."
       redirect_to rentings_my_rentings_path
     else
       @review = Review.new
+      @review.dog = @dog
       @pagy, @reviews = pagy(@dog.reviews.order('created_at DESC'), items: 5)
       render "dogs/show"
     end
