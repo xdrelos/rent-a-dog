@@ -1,0 +1,61 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">
+      <h1>My Messages</h1>
+    </div>
+    <div class="card-body">
+      <div class="card">
+        <div class="card-header">
+          <h2>Messages received</h2>
+        </div>
+        <div class="card-body">
+          <%== pagy_bootstrap_nav(@pagy_received) %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @messages_received.each do |message| %>
+                <tr>
+                  <td><%= message.sender.username %></td>
+                  <td><%= message.topic %></td>
+                  <td><%= link_to 'See', message_path(message) %></td>
+                </tr>
+              <% end -%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2>Messages sent</h2>
+        </div>
+        <div class="card-body">
+          <%== pagy_bootstrap_nav(@pagy_sent) %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @messages_sent.each do |message| %>
+                <tr>
+                  <td><%= message.sender.username %></td>
+                  <td><%= message.topic %></td>
+                  <td><%= link_to 'See', message_path(message) %></td>
+                </tr>
+              <% end -%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

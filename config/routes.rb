@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  resources :messages
   # mount ForestLiana::Engine => '/forest'
   devise_for :users
-  resources :users, only: :show
+  resources :users, only: :show do
+    resources :messages, only: [:new]
+  end
+  resources :messages, only: [:index, :show, :edit, :create, :update, :destroy]
   root to: 'pages#home'
   get 'dogs/my-dogs', to: 'dogs#my_dogs'
   resources :dogs do
     resources :rentings, only: [:create, :update]
+    #resources :messages, only: [:new, :create]
     #resources :reviews, only: :create
   end
   post 'dogs/:dog_id', to: 'reviews#create', as: :dog_reviews

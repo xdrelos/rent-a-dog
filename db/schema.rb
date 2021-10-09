@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_10_08_085744) do
     t.integer "sender_id"
     t.integer "receiver_id"
     t.text "content"
+    t.string "topic"
+    t.string "uuid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

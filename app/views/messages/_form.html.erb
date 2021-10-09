@@ -1,0 +1,9 @@
+<%= simple_form_for(@message, remote: true) do |f| %>
+  <div class="form-group">
+    To: <%= @message.receiver.username %>
+  </div>
+  <%= f.input :receiver_id, as: :hidden, value: @message.receiver.id  %>
+  <%= f.input :topic , input_html: { class: 'rounded-pill', value: ("Regarding #{params[:dog]}..." if params[:dog]) } %>
+  <%= f.input :content, input_html: { class: 'rounded-lg h-40', rows: 8 } %>
+  <%= f.button :submit, class: 'btn btn-outline-success rounded-pill' %>
+<% end %>
