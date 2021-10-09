@@ -11,6 +11,7 @@
         <div class="row">
           <div class="col-10">
             <h2><%= @dog.name %></h2>
+              <%= link_to 'Send a Message', "#{new_user_message_path(@dog.user)}?dog=#{@dog.name}", class: 'btn btn-outline-success rounded-pill' %>
           </div>
           <div class="col-2">
             <%= link_to user_path(@dog.user) do %>

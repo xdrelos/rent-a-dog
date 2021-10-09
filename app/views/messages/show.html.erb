@@ -1,0 +1,29 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">
+      <h1><%= @message.topic %></h1>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <tbody>
+          <% @messages.each do |message| %>
+            <tr>
+              <td><%= message.sender.username %></td>
+              <td><%= message.content %></td>
+            </tr>
+          <% end -%>
+          </tbody>
+        </table>
+
+      <h3>Reply</h3>
+      <%= simple_form_for(@reply, remote: true) do |f| %>
+        <%= f.input :receiver_id, as: :hidden, value: @reply.receiver.id  %>
+        <%= f.input :uuid, as: :hidden, value: @reply.uuid %>
+        <%= f.input :topic, as: :hidden, value: @reply.topic %>
+        <%= f.input :content, { class: 'rounded-lg h-40', rows: 8 } %>
+        <%= f.button :submit, class: 'btn btn-outline-success rounded-pill btn-block' %>
+        <%= link_to 'Back', messages_path, class: 'btn btn-outline-primary rounded-pill btn-block' %>
+      <% end -%>
+    </div>
+  </div>
+</div>
