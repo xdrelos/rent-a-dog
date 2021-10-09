@@ -21,7 +21,7 @@
         <%= f.input :uuid, as: :hidden, value: @reply.uuid %>
         <%= f.input :topic, as: :hidden, value: @reply.topic %>
         <%= f.input :content, { class: 'rounded-lg h-40', rows: 8 } %>
-        <%= f.button :submit, class: 'btn btn-outline-success rounded-pill btn-block' %>
+        <%= f.button :submit, value: "Reply", class: 'btn btn-outline-success rounded-pill btn-block' %>
         <%= link_to 'Back', messages_path, class: 'btn btn-outline-primary rounded-pill btn-block' %>
       <% end -%>
     </div>
