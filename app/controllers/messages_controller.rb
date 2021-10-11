@@ -13,7 +13,8 @@ class MessagesController < ApplicationController
     @message.uuid = set_uuid unless params[:message][:uuid]
     if @message.save
       flash[:notice] = "Message sent to #{@message.receiver.username}."
-      redirect_to messages_path
+      SendMessageJob.perform_later(@message)
+      redirect_to messages_path unless params[:message][:uuid]
     else
       flash[:alert] = "Message not sent."
       render :new

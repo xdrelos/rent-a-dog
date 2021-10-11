@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <table class="table table-striped">
-        <tbody>
+        <tbody id="messages">
           <% @messages.each do |message| %>
             <tr>
               <td><%= message.sender.username %></td>
